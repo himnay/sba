@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: sba-eureka
+#  boot:
+#    admin:
+#      url: http://localhost:8000/
+#      username: sbaadmin
+#      password: sbaadmin
+
+server:
+  port: 8180
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    enableSelfPreservation: true
+
+management:
+  security:
+    enabled: false
