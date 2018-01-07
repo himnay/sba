@@ -41,8 +41,8 @@ spring:
       auto-deregistration: true
 
 eureka:
-  instance:
-    leaseRenewalIntervalInSeconds: 1
+#  instance:
+#    leaseRenewalIntervalInSeconds: 1
   client:
     registryFetchIntervalSeconds: 5
     serviceUrl:

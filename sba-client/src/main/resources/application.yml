@@ -23,7 +23,7 @@ spring:
 
 eureka:
   instance:
-    leaseRenewalIntervalInSeconds: 1
+#    leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
     metadataMap:
       instanceId: ${spring.application.name}:${spring.application.instance_id}
