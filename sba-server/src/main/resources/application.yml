@@ -46,7 +46,7 @@ eureka:
   client:
     registryFetchIntervalSeconds: 5
     serviceUrl:
-      defaultZone: http://localhost:8090/eureka/
+      defaultZone: http://localhost:8180/eureka/
 ---
 spring:
   profiles: insecure

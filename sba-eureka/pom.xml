@@ -9,9 +9,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <groupId>com.jci.tofs</groupId>
     <artifactId>sba-eureka</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
