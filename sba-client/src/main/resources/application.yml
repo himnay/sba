@@ -2,7 +2,7 @@ server:
   port: 8080
 
 logging:
-  file: /tmp/demo-client.log
+  file: /Users/himansunayak/TOFS/innovation/github/sba/sba-client/logs/log.log
   level:
     com.jci.tofs.sba: DEBUG
 
@@ -11,35 +11,38 @@ spring:
     name: a-bootiful-client
   profiles:
     active: secure
-#  boot:
-#    admin:
-#      url: http://localhost:8000/
-#      auto-registration: true
-#      client:
-#        metadata:
-#          user:
-#            name: onprem
-#            password: onprem
+  boot:
+    admin:
+      url: http://localhost:8000/
+      auto-registration: true
+      client:
+        metadata:
+          user:
+            name: onprem
+            password: onprem
+endpoints:
+  jolokia:
+    sensitive: false
 
-eureka:
-  instance:
+#eureka:
+#  instance:
 #    leaseRenewalIntervalInSeconds: 1
-    leaseExpirationDurationInSeconds: 2
-    metadataMap:
-      instanceId: ${spring.application.name}:${spring.application.instance_id}
-      management:
-        contextPath: ${server.context-path}
-    statusPageUrlPath: ${server.context-path}/info
-    healthCheckUrlPath: ${server.context-path}/health
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://localhost:8180/eureka/
-    healthcheck:
-      enabled: true
-    lease:
-      duration: 5
+#    leaseExpirationDurationInSeconds: 2
+#    metadataMap:
+#      instanceId: ${spring.application.name}:${spring.application.instance_id}
+#      management:
+#        contextPath: ${server.context-path}
+#    statusPageUrlPath: ${server.context-path}/info
+#    healthCheckUrlPath: ${server.context-path}/health
+#  client:
+#    registerWithEureka: true
+#    fetchRegistry: true
+#    serviceUrl:
+#      defaultZone: http://localhost:8180/eureka/
+#    healthcheck:
+#      enabled: true
+#    lease:
+#      duration: 5
 
 
 ---
