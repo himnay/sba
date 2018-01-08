@@ -20,9 +20,9 @@ spring:
           user:
             name: onprem
             password: onprem
-endpoints:
-  jolokia:
-    sensitive: false
+#endpoints:
+#  jolokia:
+#    sensitive: false
 
 #eureka:
 #  instance:
