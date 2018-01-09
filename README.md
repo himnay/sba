@@ -20,4 +20,4 @@ start grafana
     admin/admin  
   
 Grafana metrics query  
-    rate(http_request_duration_milliseconds_count{job="inspection"}[5s])
+    scrape_duration_seconds
