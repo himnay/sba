@@ -37,16 +37,16 @@ spring:
           webhook-url: https://hooks.slack.com/services/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
           icon: trollface
           message: "*#{application.name}*  is *#{to.status}*"
-#      auto-registration: true
-#      auto-deregistration: true
+      auto-registration: true
+      auto-deregistration: true
 
-eureka:
+#eureka:
 #  instance:
 #    leaseRenewalIntervalInSeconds: 1
-  client:
-    registryFetchIntervalSeconds: 5
-    serviceUrl:
-      defaultZone: http://localhost:8180/eureka/
+#  client:
+#    registryFetchIntervalSeconds: 5
+#    serviceUrl:
+#      defaultZone: http://localhost:8090/eureka/
 ---
 spring:
   profiles: insecure

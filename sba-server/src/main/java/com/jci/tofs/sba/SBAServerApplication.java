@@ -12,7 +12,7 @@ import de.codecentric.boot.admin.config.EnableAdminServer;
 
 @Configuration
 @EnableAutoConfiguration
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @EnableAdminServer
 public class SBAServerApplication {
 
