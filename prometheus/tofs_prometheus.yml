@@ -20,7 +20,7 @@ scrape_configs:
   - job_name: 'inspection'
 
     scrape_interval: 10s
-    scrape_timeout: 5s
+    scrape_timeout: 10s
     metrics_path: '/prometheus'
     static_configs:
          - targets: ['localhost:8080']

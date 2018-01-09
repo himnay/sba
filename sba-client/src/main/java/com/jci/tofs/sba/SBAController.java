@@ -2,21 +2,24 @@ package com.jci.tofs.sba;
 
 import com.codahale.metrics.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
-import org.springframework.jmx.export.annotation.ManagedOperation;
-import org.springframework.jmx.export.annotation.ManagedResource;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@ManagedResource(objectName = "eventCount:name=SBAJMXManagedResource")
 public class SBAController {
 
-    private int eventCount = 0;
+    private final BusinessService businessService;
+    private final SBAMbean mbean;
 
-    @GetMapping("/log")
+    @Autowired
+    public SBAController(BusinessService businessService, SBAMbean mbean){
+        this.businessService = businessService;
+        this.mbean = mbean;
+    }
+
+    @PutMapping("/log")
     @Timed(name = "pubLogging", absolute = true)
     public void pubLogging(){
         log.trace("Logging Trace");
@@ -26,31 +29,15 @@ public class SBAController {
         log.error("Logging Error");
     }
 
-    @PutMapping("/addCount")
+    @PutMapping("/updateDevice")
     @Timed(name = "incrementEventCount", absolute = true)
     public void incrementEventCount(){
-        eventCount++;
+        mbean.incrementCount();
+        businessService.updateDevice();
     }
 
-    @ManagedAttribute
-    public int getEventCount() {
-        return eventCount;
-    }
 
-    @ManagedAttribute
-    public void setEventCount(int eventCount) {
-        int oldValue = this.eventCount;
-        this.eventCount = eventCount;
-        log.info("Previous value {} new value {}", oldValue, this.eventCount);
 
-    }
 
-    /*@ManagedOperation
-    public void logEventCount(String eventCount){
-        int oldValue = this.eventCount;
-        this.eventCount = Integer.parseInt(eventCount);
-        log.info("Previous value {} new value {}", oldValue, this.eventCount);
-
-    }*/
 
 }
