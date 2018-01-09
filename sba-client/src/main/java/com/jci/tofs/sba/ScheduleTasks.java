@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class ScheduleTasks {
 
     private final BusinessService businessService;
+    private final BasicAuthRestTemplate restTemplate = new BasicAuthRestTemplate("onprem", "onprem");
 
     @Autowired
     public ScheduleTasks(BusinessService businessService) {
@@ -19,6 +20,7 @@ public class ScheduleTasks {
     @Scheduled(fixedRate = 5000)
     public void scheduleUpdateDevice() {
         businessService.updateDevice();
+        restTemplate.put("http://localhost:8080/updateDevice", "");
         log.info("calling update device");
     }
 }

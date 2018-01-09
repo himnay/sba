@@ -32,6 +32,7 @@ public class SBAController {
     @PutMapping("/updateDevice")
     @Timed(name = "incrementEventCount", absolute = true)
     public void incrementEventCount(){
+        log.info("REST : update device...");
         mbean.incrementCount();
         businessService.updateDevice();
     }
