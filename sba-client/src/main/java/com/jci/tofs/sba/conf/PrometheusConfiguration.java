@@ -3,8 +3,7 @@ package com.jci.tofs.sba.conf;
 import com.codahale.metrics.MetricRegistry;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.dropwizard.DropwizardExports;
-import io.prometheus.client.hotspot.MemoryPoolsExports;
-import io.prometheus.client.hotspot.StandardExports;
+import io.prometheus.client.hotspot.DefaultExports;
 import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,18 +14,20 @@ import javax.annotation.PostConstruct;
 @EnablePrometheusEndpoint
 public class PrometheusConfiguration {
 
-    private MetricRegistry dropWizardMetricRegistry;
+    private MetricRegistry metricRegistry;
+    private DefaultExports defaultExports = new DefaultExports();
 
     @Autowired
-    public PrometheusConfiguration(MetricRegistry dropWizardMetricRegistry) {
-        this.dropWizardMetricRegistry = dropWizardMetricRegistry;
+    public PrometheusConfiguration(MetricRegistry metricRegistry) {
+        this.metricRegistry = metricRegistry;
     }
 
     @PostConstruct
     public void registerPrometheusCollectors() {
         CollectorRegistry.defaultRegistry.clear();
-        new StandardExports().register();
-        new MemoryPoolsExports().register();
-        new DropwizardExports(dropWizardMetricRegistry).register();
+
+        // register all collector. can be customized as per need. The same can be done by @EnableSpringBootMetricsCollector
+        // defaultExports.initialize();
+        new DropwizardExports(metricRegistry).register();
     }
 }

@@ -20,6 +20,10 @@ spring:
           user:
             name: onprem
             password: onprem
+
+#endpoints:
+#  prometheus:
+#    path: prometheus-metrics
 #endpoints:
 #  jolokia:
 #    sensitive: false

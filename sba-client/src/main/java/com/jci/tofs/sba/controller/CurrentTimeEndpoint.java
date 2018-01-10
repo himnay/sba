@@ -1,4 +1,4 @@
-package com.jci.tofs.sba;
+package com.jci.tofs.sba.controller;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;

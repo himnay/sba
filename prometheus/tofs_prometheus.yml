@@ -2,7 +2,7 @@
 global:
   scrape_interval: 15s
 scrape_configs:
-  - job_name: tofs
+  - job_name: SBAClient
     scrape_interval: 5s
     basic_auth:
           username: 'onprem'

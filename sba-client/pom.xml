@@ -72,6 +72,11 @@
         </dependency>
         <dependency>
             <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient_servlet</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.prometheus</groupId>
             <artifactId>simpleclient_hotspot</artifactId>
             <version>0.1.0</version>
         </dependency>
@@ -80,11 +85,11 @@
             <artifactId>simpleclient_dropwizard</artifactId>
             <version>0.1.0</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>io.prometheus</groupId>
             <artifactId>simpleclient</artifactId>
             <version>0.1.0</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

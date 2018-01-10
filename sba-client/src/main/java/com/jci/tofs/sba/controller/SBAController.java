@@ -1,7 +1,6 @@
 package com.jci.tofs.sba.controller;
 
 import com.codahale.metrics.annotation.Timed;
-import com.jci.tofs.sba.CurrentTimeEndpoint;
 import com.jci.tofs.sba.service.DeviceService;
 import com.jci.tofs.sba.mbeans.DeviceMbean;
 import lombok.extern.slf4j.Slf4j;
