@@ -19,7 +19,7 @@ public class ScheduleTasks {
         this.deviceService = deviceService;
     }
 
-    @Scheduled(initialDelay = 5000, fixedRate = 5000)
+    @Scheduled(initialDelay = 5000, fixedRate = 10000)
     public void scheduleUpdateDevice() {
 //        businessService.updateDevice();
         restTemplate.put("http://localhost:8080/updateDevice", "");

@@ -7,10 +7,11 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 
 @Slf4j
 @Configuration
-@ManagedResource(objectName = "messageCount:name=MessageCountMbean")
+@ManagedResource(objectName = "sba-client:name=MessageCountMbean")
 public class DeviceMbean {
 
     private int messageCount = 0;
+    private boolean flag = true;
 
     @ManagedAttribute
     public int getMessageCount() {
@@ -24,6 +25,21 @@ public class DeviceMbean {
         log.info("Previous value {} new value {}", oldValue, this.messageCount);
 
     }
+
+    @ManagedAttribute
+    public boolean isFlag() {
+        return flag;
+    }
+
+    @ManagedAttribute
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+        if(!flag){
+            log.info("flag set to false. Lets do something else.");
+        }
+    }
+
+
 
     /*@ManagedOperation
     public void logEventCount(String eventCount){
