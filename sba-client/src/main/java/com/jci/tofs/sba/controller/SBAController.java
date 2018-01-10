@@ -2,8 +2,8 @@ package com.jci.tofs.sba.controller;
 
 import com.codahale.metrics.annotation.Timed;
 import com.jci.tofs.sba.CurrentTimeEndpoint;
-import com.jci.tofs.sba.service.BusinessService;
-import com.jci.tofs.sba.counter.SBAMbean;
+import com.jci.tofs.sba.service.DeviceService;
+import com.jci.tofs.sba.mbeans.DeviceMbean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SBAController {
 
-    private final BusinessService businessService;
-    private final SBAMbean mbean;
+    private final DeviceService deviceService;
+    private final DeviceMbean deviceMbean;
 
     @Autowired
-    public SBAController(BusinessService businessService, SBAMbean mbean){
-        this.businessService = businessService;
-        this.mbean = mbean;
+    public SBAController(DeviceService deviceService, DeviceMbean deviceMbean){
+        this.deviceService = deviceService;
+        this.deviceMbean = deviceMbean;
     }
 
     @PutMapping("/log")
@@ -38,8 +38,8 @@ public class SBAController {
     @Timed(name = "incrementEventCount", absolute = true)
     public void incrementEventCount(){
         log.info("REST : update device...");
-        mbean.incrementCount();
-        businessService.updateDevice();
+        deviceMbean.incrementCount();
+        deviceService.updateDevice();
     }
 
     @GetMapping("/")

@@ -1,7 +1,7 @@
 package com.jci.tofs.sba.scheduler;
 
 import com.jci.tofs.sba.controller.BasicAuthRestTemplate;
-import com.jci.tofs.sba.service.BusinessService;
+import com.jci.tofs.sba.service.DeviceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScheduleTasks {
 
-    private final BusinessService businessService;
+    private final DeviceService deviceService;
     private final BasicAuthRestTemplate restTemplate = new BasicAuthRestTemplate("onprem", "onprem");
 
     @Autowired
-    public ScheduleTasks(BusinessService businessService) {
-        this.businessService = businessService;
+    public ScheduleTasks(DeviceService deviceService) {
+        this.deviceService = deviceService;
     }
 
     @Scheduled(initialDelay = 5000, fixedRate = 5000)

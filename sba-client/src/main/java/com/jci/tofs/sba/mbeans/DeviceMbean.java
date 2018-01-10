@@ -1,4 +1,4 @@
-package com.jci.tofs.sba.counter;
+package com.jci.tofs.sba.mbeans;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,7 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 @Slf4j
 @Configuration
 @ManagedResource(objectName = "messageCount:name=MessageCountMbean")
-public class SBAMbean {
+public class DeviceMbean {
 
     private int messageCount = 0;
 
