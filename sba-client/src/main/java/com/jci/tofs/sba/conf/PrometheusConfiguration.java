@@ -1,4 +1,4 @@
-package com.jci.tofs.sba;
+package com.jci.tofs.sba.conf;
 
 import com.codahale.metrics.MetricRegistry;
 import io.prometheus.client.CollectorRegistry;

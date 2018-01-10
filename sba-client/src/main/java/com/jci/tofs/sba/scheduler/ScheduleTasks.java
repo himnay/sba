@@ -1,5 +1,7 @@
-package com.jci.tofs.sba;
+package com.jci.tofs.sba.scheduler;
 
+import com.jci.tofs.sba.controller.BasicAuthRestTemplate;
+import com.jci.tofs.sba.service.BusinessService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,10 +19,9 @@ public class ScheduleTasks {
         this.businessService = businessService;
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(initialDelay = 5000, fixedRate = 5000)
     public void scheduleUpdateDevice() {
-        businessService.updateDevice();
+//        businessService.updateDevice();
         restTemplate.put("http://localhost:8080/updateDevice", "");
-        log.info("calling update device");
     }
 }
