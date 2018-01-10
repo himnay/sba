@@ -1,6 +1,7 @@
 package com.jci.tofs.sba.conf;
 
 import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.health.HealthCheckRegistry;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.dropwizard.DropwizardExports;
 import io.prometheus.client.hotspot.DefaultExports;
@@ -15,6 +16,7 @@ import javax.annotation.PostConstruct;
 public class PrometheusConfiguration {
 
     private MetricRegistry metricRegistry;
+//    private HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
     private DefaultExports defaultExports = new DefaultExports();
 
     @Autowired
