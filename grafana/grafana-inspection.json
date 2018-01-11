@@ -22,7 +22,7 @@
   "refresh": "5s",
   "rows": [
     {
-      "collapse": false,
+      "collapse": true,
       "height": "250px",
       "panels": [
         {
@@ -108,11 +108,11 @@
         {
           "cacheTimeout": null,
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+            "rgb(14, 24, 11)",
+            "#629e51",
+            "#65c5db"
           ],
           "datasource": "prometheus_ds",
           "decimals": null,
@@ -175,6 +175,7 @@
           "timeFrom": "5s",
           "timeShift": null,
           "title": "Process Start Time",
+          "transparent": true,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -284,7 +285,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "The sum of the number of runnable entities queued to available processors and the number of runnable entities running on the available processors averaged over a period of time",
-          "fill": 1,
+          "fill": 0,
           "id": 4,
           "legend": {
             "alignAsTable": true,
@@ -304,7 +305,13 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "repeat": null,
+          "seriesOverrides": [
+            {
+              "alias": "cpu load",
+              "color": "#e24d42"
+            }
+          ],
           "spaceLength": 10,
           "span": 8,
           "stack": false,
@@ -313,8 +320,10 @@
             {
               "expr": "systemload_average{job=\"Inspection Job\"}",
               "format": "time_series",
+              "instant": false,
+              "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "cpu load",
               "refId": "A",
               "step": 20
             }
@@ -802,7 +811,7 @@
               "expr": "threads_peak{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "thread peak",
               "refId": "A",
               "step": 4
             }
@@ -880,7 +889,7 @@
               "expr": "threads_daemon{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "daemon thread",
               "refId": "A",
               "step": 4
             }
@@ -958,7 +967,7 @@
               "expr": "threads{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "total thread",
               "refId": "A",
               "step": 4
             }
@@ -1036,7 +1045,7 @@
               "expr": "threads_totalStarted{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "jvm thread",
               "refId": "A",
               "step": 4
             }
@@ -1126,7 +1135,7 @@
               "expr": "heap{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
+              "legendFormat": "heap memory",
               "refId": "A",
               "step": 2
             }
@@ -1204,7 +1213,7 @@
               "expr": "heap_init{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}}",
+              "legendFormat": "heap init",
               "refId": "A",
               "step": 2
             }
@@ -1282,7 +1291,7 @@
               "expr": "heap_committed{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
+              "legendFormat": "heap commited",
               "refId": "A",
               "step": 2
             }
@@ -1438,7 +1447,7 @@
               "expr": "nonheap{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
+              "legendFormat": "nonheap memory",
               "refId": "A",
               "step": 2
             }
@@ -1513,10 +1522,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "nonheap_init{job=\"Inspection Job\"}",
+              "expr": "nonheap_init{job=\"Inspection Job\"}    ",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}}",
+              "legendFormat": "non heap",
               "refId": "A",
               "step": 2
             }
@@ -1594,7 +1603,7 @@
               "expr": "nonheap_committed{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
+              "legendFormat": "non heap",
               "refId": "A",
               "step": 2
             }
@@ -1888,7 +1897,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Time",
-          "fill": 1,
+          "fill": 0,
           "id": 21,
           "legend": {
             "alignAsTable": true,
@@ -1908,7 +1917,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "marksweep time",
+              "color": "#1f78c1"
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -1918,7 +1932,7 @@
               "expr": "gc_ps_marksweep_time{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "marksweep time",
               "refId": "A",
               "step": 2
             }
@@ -1932,6 +1946,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": false,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1966,7 +1981,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Time",
-          "fill": 1,
+          "fill": 0,
           "id": 22,
           "legend": {
             "alignAsTable": true,
@@ -1986,7 +2001,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "scavenge time",
+              "color": "#1f78c1"
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -1996,7 +2016,7 @@
               "expr": "gc_ps_scavenge_time{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "scavenge time",
               "refId": "A",
               "step": 2
             }
@@ -2044,7 +2064,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Count",
-          "fill": 1,
+          "fill": 0,
           "id": 23,
           "legend": {
             "alignAsTable": true,
@@ -2064,7 +2084,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "cause (action)",
+              "color": "#1f78c1"
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -2122,7 +2147,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Count",
-          "fill": 1,
+          "fill": 0,
           "id": 24,
           "legend": {
             "alignAsTable": true,
@@ -2142,7 +2167,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "cause (action)",
+              "color": "#1f78c1"
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -2210,7 +2240,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "prometheus_ds",
           "fill": 1,
           "id": 29,
           "legend": {
@@ -2230,7 +2260,11 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "available classes"
+            }
+          ],
           "spaceLength": 10,
           "span": 4,
           "stack": false,
@@ -2240,6 +2274,7 @@
               "expr": "classes{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
+              "legendFormat": "available classes",
               "refId": "A"
             }
           ],
@@ -2262,7 +2297,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2270,7 +2305,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2316,7 +2351,7 @@
               "expr": "classes_loaded{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "classes loaded",
               "refId": "A",
               "step": 30
             }
@@ -2394,7 +2429,7 @@
               "expr": "classes_unloaded{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "classes unloaded",
               "refId": "A",
               "step": 30
             }
@@ -2642,7 +2677,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 4,
+          "span": 3,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -2721,7 +2756,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 4,
+          "span": 3,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -2798,7 +2833,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 4,
+          "span": 3,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -2806,6 +2841,7 @@
               "expr": "jci_tofs_device_update_count{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
+              "legendFormat": "device count",
               "refId": "A"
             }
           ],
@@ -2845,6 +2881,83 @@
               "show": true
             }
           ]
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": null,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 40,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "expr": "datasource_primary_active{job=\"Inspection Job\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "DB Connection",
+              "refId": "A"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "3s",
+          "title": "Active DB Connection",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "0",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
         }
       ],
       "repeat": null,
@@ -2941,5 +3054,5 @@
   },
   "timezone": "",
   "title": "TOFS Inspection",
-  "version": 21
+  "version": 29
 }
