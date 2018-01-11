@@ -11,3 +11,13 @@ scrape_configs:
     static_configs:
         - targets:
           - localhost:8080
+  - job_name: Inspection Job
+    scrape_interval: 3s
+    scrape_timeout: 3s
+    basic_auth:
+          username: 'onprem'
+          password: 'onprem'
+    metrics_path: /manage/prometheus
+    static_configs:
+        - targets:
+          - localhost:8081
