@@ -17,12 +17,12 @@
   "gnetId": 3308,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 11,
+  "id": 13,
   "links": [],
-  "refresh": false,
+  "refresh": "5s",
   "rows": [
     {
-      "collapse": true,
+      "collapse": false,
       "height": "250px",
       "panels": [
         {
@@ -30,13 +30,15 @@
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+            "rgba(139, 139, 139, 1)",
+            "rgba(139, 139, 139, 1)",
+            "rgba(63, 104, 51, 1)"
           ],
           "datasource": "prometheus_ds",
-          "decimals": null,
+          "decimals": 2,
           "description": "The uptime of the Java virtual machine",
+          "editable": true,
+          "error": false,
           "format": "ms",
           "gauge": {
             "maxValue": 100,
@@ -45,7 +47,6 @@
             "thresholdLabels": false,
             "thresholdMarkers": true
           },
-          "height": "",
           "id": 1,
           "interval": null,
           "links": [],
@@ -76,23 +77,24 @@
           ],
           "span": 6,
           "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "fillColor": "rgba(255, 255, 255, 0)",
             "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "lineColor": "rgb(110, 208, 224)",
+            "show": true
           },
           "tableColumn": "",
           "targets": [
             {
-              "expr": "uptime",
+              "expr": "uptime{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
-              "step": 240
+              "target": "averageSeries(worldping.$endpoint.$probe.dns.time)"
             }
           ],
           "thresholds": "",
           "title": "Process Uptime",
+          "transparent": true,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -102,16 +104,16 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "avg"
         },
         {
           "cacheTimeout": null,
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+            "rgb(14, 24, 11)",
+            "#629e51",
+            "#65c5db"
           ],
           "datasource": "prometheus_ds",
           "decimals": null,
@@ -163,7 +165,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "instance_uptime",
+              "expr": "instance_uptime{job=\"Test Client\"}\t",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -171,7 +173,10 @@
             }
           ],
           "thresholds": "",
+          "timeFrom": "5s",
+          "timeShift": null,
           "title": "Process Start Time",
+          "transparent": true,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -192,7 +197,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
+      "collapse": false,
       "height": 250,
       "panels": [
         {
@@ -253,7 +258,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "processors",
+              "expr": "processors{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "",
@@ -281,11 +286,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "The sum of the number of runnable entities queued to available processors and the number of runnable entities running on the available processors averaged over a period of time",
-          "fill": 1,
+          "fill": 2,
           "id": 4,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -299,19 +304,27 @@
           "nullPointMode": "null",
           "percentage": false,
           "pointradius": 5,
-          "points": false,
+          "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "repeat": null,
+          "seriesOverrides": [
+            {
+              "alias": "cpu load",
+              "color": "#e24d42"
+            }
+          ],
           "spaceLength": 10,
           "span": 8,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "systemload_average",
+              "expr": "systemload_average{job=\"Test Client\"}",
               "format": "time_series",
+              "instant": false,
+              "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "cpu load",
               "refId": "A",
               "step": 20
             }
@@ -759,7 +772,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
+      "collapse": false,
       "height": 250,
       "panels": [
         {
@@ -773,7 +786,7 @@
           "id": 10,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -796,10 +809,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "threads_peak",
+              "expr": "threads_peak{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "thread peak",
               "refId": "A",
               "step": 4
             }
@@ -851,7 +864,7 @@
           "id": 11,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -874,10 +887,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "threads_daemon",
+              "expr": "threads_daemon{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "daemon thread",
               "refId": "A",
               "step": 4
             }
@@ -929,7 +942,7 @@
           "id": 12,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -952,10 +965,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "threads",
+              "expr": "threads{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "total thread",
               "refId": "A",
               "step": 4
             }
@@ -1007,7 +1020,7 @@
           "id": 36,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1030,10 +1043,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "threads_totalStarted",
+              "expr": "threads_totalStarted{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "jvm thread",
               "refId": "A",
               "step": 4
             }
@@ -1083,8 +1096,8 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
-      "height": 267,
+      "collapse": false,
+      "height": 263,
       "panels": [
         {
           "aliasColors": {},
@@ -1093,11 +1106,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "The maximum amount of memory in bytes that can be used for memory management",
-          "fill": 1,
+          "fill": 0,
           "id": 18,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1120,18 +1133,26 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "heap",
+              "expr": "heap{job=\"Test Client\"}",
               "format": "time_series",
+              "instant": false,
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
+              "legendFormat": "heap memory",
               "refId": "A",
               "step": 2
+            },
+            {
+              "expr": "nonheap{job=\"Test Client\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "non heap memory",
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Heap Memory",
+          "title": "Heap/NonHeap Memory",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1171,11 +1192,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "An estimate of the total capacity of the buffers in this pool",
-          "fill": 1,
+          "fill": 0,
           "id": 15,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1198,18 +1219,25 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "heap_init",
+              "expr": "heap_init{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}}",
+              "legendFormat": "heap init",
               "refId": "A",
               "step": 2
+            },
+            {
+              "expr": "nonheap_init{job=\"Test Client\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "non heap init",
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Heap Init",
+          "title": "Heap/Non Heap Init",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1253,7 +1281,7 @@
           "id": 16,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1276,10 +1304,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "heap_committed",
+              "expr": "heap_committed{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
+              "legendFormat": "heap commited",
               "refId": "A",
               "step": 2
             }
@@ -1326,246 +1354,12 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "prometheus_ds",
-          "description": "The amount of memory in bytes that is used for  the Java virtual machine to use",
-          "fill": 1,
-          "id": 17,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "heap_used",
-              "format": "time_series",
-              "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Heap Used",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
-          "description": "The maximum amount of memory in bytes that can be used for memory management",
-          "fill": 1,
-          "id": 30,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "nonheap",
-              "format": "time_series",
-              "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "NonHeap Memory",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
-          "description": "An estimate of the total capacity of the buffers in this pool",
-          "fill": 1,
-          "id": 31,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "nonheap_init",
-              "format": "time_series",
-              "intervalFactor": 2,
-              "legendFormat": "{{id}}",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "NonHeap Init",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
           "description": "The amount of committed memory",
           "fill": 1,
           "id": 32,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1588,10 +1382,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "nonheap_committed",
+              "expr": "nonheap_committed{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
+              "legendFormat": "non heap",
               "refId": "A",
               "step": 2
             }
@@ -1634,159 +1428,62 @@
         },
         {
           "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
-          "description": "The amount of memory in bytes that is used for  the Java virtual machine to use",
-          "fill": 1,
-          "id": 33,
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": null,
+          "fontSize": "80%",
+          "format": "short",
+          "id": 41,
+          "interval": null,
           "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
             "show": true,
-            "total": false,
             "values": true
           },
-          "lines": true,
-          "linewidth": 1,
+          "legendType": "Under graph",
           "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "span": 8,
+          "strokeWidth": 1,
           "targets": [
             {
-              "expr": "nonheap_used",
+              "expr": "mem_free{job=\"Test Client\"}",
               "format": "time_series",
+              "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "NonHeap Used",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
+              "legendFormat": "free memory",
+              "refId": "A"
             },
             {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
-          "description": "The maximum amount of memory in bytes that can be used for memory management",
-          "fill": 1,
-          "id": 34,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "mem",
+              "expr": "heap_used{job=\"Test Client\"}",
               "format": "time_series",
+              "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Memory",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
+              "legendFormat": "heap used",
+              "refId": "B"
             },
             {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
+              "expr": "nonheap_used{job=\"Test Client\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "nonheap used",
+              "refId": "C"
+            },
+            {
+              "expr": "mem{job=\"Test Client\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "jvm used memory",
+              "refId": "D"
             }
-          ]
+          ],
+          "title": "JVM Used Memory Distribution",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
         },
         {
           "aliasColors": {},
@@ -1799,7 +1496,7 @@
           "id": 35,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1817,12 +1514,12 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 3,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "mem_free",
+              "expr": "mem_free{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{id}}",
@@ -1885,11 +1582,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Time",
-          "fill": 1,
+          "fill": 0,
           "id": 21,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1905,17 +1602,22 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "marksweep time",
+              "color": "#1f78c1"
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "gc_ps_marksweep_time",
+              "expr": "gc_ps_marksweep_time{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "marksweep time",
               "refId": "A",
               "step": 2
             }
@@ -1929,6 +1631,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": false,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1963,11 +1666,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Time",
-          "fill": 1,
+          "fill": 0,
           "id": 22,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1983,17 +1686,22 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "scavenge time",
+              "color": "#1f78c1"
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "gc_ps_scavenge_time",
+              "expr": "gc_ps_scavenge_time{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "scavenge time",
               "refId": "A",
               "step": 2
             }
@@ -2041,11 +1749,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Count",
-          "fill": 1,
+          "fill": 0,
           "id": 23,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2061,14 +1769,19 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "cause (action)",
+              "color": "#1f78c1"
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "gc_ps_marksweep_count",
+              "expr": "gc_ps_marksweep_count{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{cause}} ({{action}})",
@@ -2119,11 +1832,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Count",
-          "fill": 1,
+          "fill": 0,
           "id": 24,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2139,14 +1852,19 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "cause (action)",
+              "color": "#1f78c1"
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "gc_ps_scavenge_count",
+              "expr": "gc_ps_scavenge_count{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{cause}} ({{action}})",
@@ -2199,7 +1917,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
+      "collapse": false,
       "height": 234,
       "panels": [
         {
@@ -2207,17 +1925,18 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "prometheus_ds",
           "fill": 1,
           "id": 29,
           "legend": {
+            "alignAsTable": true,
             "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
+            "current": true,
+            "max": true,
+            "min": true,
             "show": true,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": true,
           "linewidth": 1,
@@ -2227,16 +1946,22 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "available classes",
+              "color": "#890f02"
+            }
+          ],
           "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "classes",
+              "expr": "classes{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
+              "legendFormat": "available classes",
               "refId": "A"
             }
           ],
@@ -2259,7 +1984,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2267,7 +1992,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2287,7 +2012,7 @@
           "id": 25,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2303,17 +2028,22 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "classes loaded",
+              "color": "#bf1b00"
+            }
+          ],
           "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "classes_loaded",
+              "expr": "classes_loaded{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "classes loaded",
               "refId": "A",
               "step": 30
             }
@@ -2337,7 +2067,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2345,7 +2075,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2365,7 +2095,7 @@
           "id": 26,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2381,17 +2111,22 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "classes unloaded",
+              "color": "#bf1b00"
+            }
+          ],
           "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "classes_unloaded",
+              "expr": "classes_unloaded{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{kubernetes_pod_name}}",
+              "legendFormat": "classes unloaded",
               "refId": "A",
               "step": 30
             }
@@ -2415,7 +2150,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2423,7 +2158,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2441,7 +2176,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
+      "collapse": false,
       "height": 250,
       "panels": [
         {
@@ -2451,11 +2186,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "Count of servlet requests",
-          "fill": 1,
+          "fill": 0,
           "id": 27,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2478,10 +2213,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "httpsessions_max",
+              "expr": "httpsessions_max{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{method}} {{uri}} - {{status}}",
+              "legendFormat": "max http session",
               "refId": "A",
               "step": 30
             }
@@ -2495,6 +2230,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2533,7 +2269,7 @@
           "id": 28,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2556,7 +2292,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "httpsessions_active",
+              "expr": "httpsessions_active{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{method}} {{uri}} - {{status}}",
@@ -2573,6 +2309,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2583,7 +2320,7 @@
           },
           "yaxes": [
             {
-              "format": "lengthm",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2591,7 +2328,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2609,8 +2346,8 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
-      "height": 234,
+      "collapse": false,
+      "height": 222,
       "panels": [
         {
           "aliasColors": {},
@@ -2618,7 +2355,163 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": null,
-          "fill": 1,
+          "fill": 0,
+          "id": 39,
+          "legend": {
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "counter_status_201_inspections{job=\"Test Client\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "No of inspection created",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Inspection Create",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "prometheus_ds",
+          "fill": 0,
+          "hideTimeOverride": false,
+          "id": 38,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "gauge_response_inspections{job=\"Test Client\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "inspection",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Inspection Create Time",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "prometheus_ds",
+          "fill": 0,
+          "hideTimeOverride": false,
           "id": 37,
           "legend": {
             "avg": false,
@@ -2639,14 +2532,15 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 4,
+          "span": 3,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "jci_tofs_device_update_count",
+              "expr": "jci_tofs_device_update_count{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
+              "legendFormat": "device count",
               "refId": "A"
             }
           ],
@@ -2659,6 +2553,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2685,6 +2580,84 @@
               "show": true
             }
           ]
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "#0a437c",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": null,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "id": 40,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "expr": "datasource_primary_active{job=\"Test Client\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "DB Connection",
+              "refId": "A"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "3s",
+          "title": "Active DB Connection",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "0",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
         }
       ],
       "repeat": null,
@@ -2751,7 +2724,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
