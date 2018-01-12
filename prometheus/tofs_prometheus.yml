@@ -5,19 +5,26 @@ scrape_configs:
   - job_name: Test Client
     scrape_interval: 5s
     basic_auth:
-          username: 'onprem'
-          password: 'onprem'
+      username: 'onprem'
+      password: 'onprem'
     metrics_path: /prometheus
     static_configs:
-        - targets:
-          - localhost:8080
+      - targets:
+        - localhost:8080
   - job_name: Inspection Job
     scrape_interval: 3s
     scrape_timeout: 3s
     basic_auth:
-          username: 'onprem'
-          password: 'onprem'
+      username: 'onprem'
+      password: 'onprem'
     metrics_path: /manage/prometheus
     static_configs:
-        - targets:
-          - localhost:8081
+      - targets:
+        - localhost:8081
+  - job_name: Grok Log Job
+    scrape_interval: 3s
+    scrape_timeout: 3s
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - localhost:9144

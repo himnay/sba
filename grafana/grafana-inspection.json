@@ -17,12 +17,12 @@
   "gnetId": 3308,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 11,
+  "id": 26,
   "links": [],
   "refresh": "5s",
   "rows": [
     {
-      "collapse": true,
+      "collapse": false,
       "height": "250px",
       "panels": [
         {
@@ -30,13 +30,15 @@
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+            "rgba(139, 139, 139, 1)",
+            "rgba(139, 139, 139, 1)",
+            "rgba(63, 104, 51, 1)"
           ],
           "datasource": "prometheus_ds",
-          "decimals": null,
+          "decimals": 2,
           "description": "The uptime of the Java virtual machine",
+          "editable": true,
+          "error": false,
           "format": "ms",
           "gauge": {
             "maxValue": 100,
@@ -45,11 +47,10 @@
             "thresholdLabels": false,
             "thresholdMarkers": true
           },
-          "height": "",
           "id": 1,
           "interval": null,
           "links": [],
-          "mappingType": 2,
+          "mappingType": 1,
           "mappingTypes": [
             {
               "name": "value to text",
@@ -76,10 +77,10 @@
           ],
           "span": 6,
           "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "fillColor": "rgba(255, 255, 255, 0)",
             "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "lineColor": "rgb(110, 208, 224)",
+            "show": true
           },
           "tableColumn": "",
           "targets": [
@@ -88,12 +89,12 @@
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
-              "step": 240
+              "target": "averageSeries(worldping.$endpoint.$probe.dns.time)"
             }
           ],
           "thresholds": "",
-          "timeFrom": "5s",
           "title": "Process Uptime",
+          "transparent": true,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -103,7 +104,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "avg"
         },
         {
           "cacheTimeout": null,
@@ -197,29 +198,28 @@
     },
     {
       "collapse": true,
-      "height": 250,
+      "height": 246,
       "panels": [
         {
           "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
+            "#299c46",
             "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+            "#d44a3a"
           ],
-          "datasource": "prometheus_ds",
-          "decimals": null,
+          "datasource": null,
           "description": "The number of processors available to the Java virtual machine",
           "format": "none",
           "gauge": {
             "maxValue": 100,
             "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
+            "show": true,
+            "thresholdLabels": true,
             "thresholdMarkers": true
           },
-          "id": 3,
+          "id": 42,
           "interval": null,
           "links": [],
           "mappingType": 1,
@@ -236,7 +236,7 @@
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
-          "postfix": " CPU",
+          "postfix": "",
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
@@ -260,9 +260,7 @@
               "expr": "processors{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "",
-              "refId": "A",
-              "step": 240
+              "refId": "A"
             }
           ],
           "thresholds": "",
@@ -284,12 +282,13 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "prometheus_ds",
-          "description": "The sum of the number of runnable entities queued to available processors and the number of runnable entities running on the available processors averaged over a period of time",
-          "fill": 0,
+          "decimals": null,
+          "description": "CPU Load",
+          "fill": 1,
           "id": 4,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -300,12 +299,110 @@
           "lines": true,
           "linewidth": 1,
           "links": [],
+          "minSpan": null,
           "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 3,
+          "points": true,
           "renderer": "flot",
           "repeat": null,
+          "seriesOverrides": [
+            {
+              "alias": "cpu load",
+              "color": "#0a437c"
+            }
+          ],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "systemload_average{job=\"Inspection Job\"}",
+              "format": "time_series",
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "cpu load",
+              "refId": "A",
+              "step": 20
+            }
+          ],
+          "thresholds": [
+            {
+              "colorMode": "critical",
+              "fill": true,
+              "line": true,
+              "op": "gt"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CPU Load",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 3,
+              "format": "none",
+              "label": "cpu load",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "decimals": null,
+              "format": "none",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "prometheus_ds",
+          "decimals": null,
+          "description": "The sum of the number of runnable entities queued to available processors and the number of runnable entities running on the available processors averaged over a period of time",
+          "fill": 2,
+          "id": 43,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": null,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 3,
+          "points": true,
+          "renderer": "flot",
           "seriesOverrides": [
             {
               "alias": "cpu load",
@@ -313,7 +410,7 @@
             }
           ],
           "spaceLength": 10,
-          "span": 8,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -331,12 +428,13 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Average CPU Load",
+          "title": "Average System Load",
           "tooltip": {
             "shared": true,
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -347,16 +445,18 @@
           },
           "yaxes": [
             {
-              "format": "short",
-              "label": null,
+              "decimals": 3,
+              "format": "none",
+              "label": "system load",
               "logBase": 1,
               "max": null,
               "min": null,
               "show": true
             },
             {
-              "format": "short",
-              "label": null,
+              "decimals": null,
+              "format": "none",
+              "label": "",
               "logBase": 1,
               "max": null,
               "min": null,
@@ -373,7 +473,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
+      "collapse": false,
       "height": 250,
       "panels": [
         {
@@ -433,7 +533,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"warn\"}",
+              "expr": "tofs_inspection_warning_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -510,7 +610,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"debug\"}",
+              "expr": "tofs_inspection_debug_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "",
@@ -588,7 +688,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"error\"}",
+              "expr": "tofs_inspection_error_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -665,7 +765,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"trace\"}",
+              "expr": "tofs_inspection_trace_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -742,7 +842,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"info\"}",
+              "expr": "tofs_inspection_info_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -785,7 +885,7 @@
           "id": 10,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -863,7 +963,7 @@
           "id": 11,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -941,7 +1041,7 @@
           "id": 12,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1019,7 +1119,7 @@
           "id": 36,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1096,7 +1196,7 @@
     },
     {
       "collapse": true,
-      "height": 267,
+      "height": 263,
       "panels": [
         {
           "aliasColors": {},
@@ -1105,11 +1205,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "The maximum amount of memory in bytes that can be used for memory management",
-          "fill": 1,
+          "fill": 0,
           "id": 18,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1134,16 +1234,24 @@
             {
               "expr": "heap{job=\"Inspection Job\"}",
               "format": "time_series",
+              "instant": false,
               "intervalFactor": 2,
               "legendFormat": "heap memory",
               "refId": "A",
               "step": 2
+            },
+            {
+              "expr": "nonheap{job=\"Inspection Job\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "non heap memory",
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Heap Memory",
+          "title": "Heap/NonHeap Memory",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1183,11 +1291,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "An estimate of the total capacity of the buffers in this pool",
-          "fill": 1,
+          "fill": 0,
           "id": 15,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1216,12 +1324,19 @@
               "legendFormat": "heap init",
               "refId": "A",
               "step": 2
+            },
+            {
+              "expr": "nonheap_init{job=\"Inspection Job\"}",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "non heap init",
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Heap Init",
+          "title": "Heap/Non Heap Init",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1265,7 +1380,7 @@
           "id": 16,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1338,246 +1453,12 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "prometheus_ds",
-          "description": "The amount of memory in bytes that is used for  the Java virtual machine to use",
-          "fill": 1,
-          "id": 17,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "heap_used{job=\"Inspection Job\"}",
-              "format": "time_series",
-              "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Heap Used",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
-          "description": "The maximum amount of memory in bytes that can be used for memory management",
-          "fill": 1,
-          "id": 30,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "nonheap{job=\"Inspection Job\"}",
-              "format": "time_series",
-              "intervalFactor": 2,
-              "legendFormat": "nonheap memory",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "NonHeap Memory",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
-          "description": "An estimate of the total capacity of the buffers in this pool",
-          "fill": 1,
-          "id": 31,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "nonheap_init{job=\"Inspection Job\"}    ",
-              "format": "time_series",
-              "intervalFactor": 2,
-              "legendFormat": "non heap",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "NonHeap Init",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
           "description": "The amount of committed memory",
           "fill": 1,
           "id": 32,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1646,159 +1527,63 @@
         },
         {
           "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
-          "description": "The amount of memory in bytes that is used for  the Java virtual machine to use",
-          "fill": 1,
-          "id": 33,
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": null,
+          "description": "jvm used memory - is the total amount of memory that the JVM is currently using.",
+          "fontSize": "80%",
+          "format": "decbytes",
+          "id": 41,
+          "interval": null,
           "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
             "show": true,
-            "total": false,
             "values": true
           },
-          "lines": true,
-          "linewidth": 1,
+          "legendType": "Under graph",
           "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "donut",
+          "span": 8,
+          "strokeWidth": 1,
           "targets": [
+            {
+              "expr": "mem_free{job=\"Inspection Job\"}",
+              "format": "time_series",
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "free memory",
+              "refId": "A"
+            },
+            {
+              "expr": "heap_used{job=\"Inspection Job\"}",
+              "format": "time_series",
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "heap used",
+              "refId": "B"
+            },
             {
               "expr": "nonheap_used{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "NonHeap Used",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
+              "legendFormat": "nonheap used",
+              "refId": "C"
             },
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "prometheus_ds",
-          "description": "The maximum amount of memory in bytes that can be used for memory management",
-          "fill": 1,
-          "id": 34,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
             {
               "expr": "mem{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{id}} ({{area}})",
-              "refId": "A",
-              "step": 2
+              "legendFormat": "jvm used memory",
+              "refId": "D"
             }
           ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Memory",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "decbytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
+          "title": "JVM Used Memory Distribution",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
         },
         {
           "aliasColors": {},
@@ -1806,12 +1591,12 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "prometheus_ds",
-          "description": "An estimate of the total capacity of the buffers in this pool",
+          "description": "It is the amount of memory that's available to the JVM",
           "fill": 1,
           "id": 35,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1829,7 +1614,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 3,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -1845,7 +1630,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Memory Free",
+          "title": "Free Memory",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1901,7 +1686,7 @@
           "id": 21,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -1985,7 +1770,7 @@
           "id": 22,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2068,7 +1853,7 @@
           "id": 23,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2151,7 +1936,7 @@
           "id": 24,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2244,13 +2029,14 @@
           "fill": 1,
           "id": 29,
           "legend": {
+            "alignAsTable": true,
             "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
+            "current": true,
+            "max": true,
+            "min": true,
             "show": true,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": true,
           "linewidth": 1,
@@ -2262,7 +2048,8 @@
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "available classes"
+              "alias": "available classes",
+              "color": "#890f02"
             }
           ],
           "spaceLength": 10,
@@ -2325,7 +2112,7 @@
           "id": 25,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2341,7 +2128,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "classes loaded",
+              "color": "#bf1b00"
+            }
+          ],
           "spaceLength": 10,
           "span": 4,
           "stack": false,
@@ -2375,7 +2167,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2383,7 +2175,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2403,7 +2195,7 @@
           "id": 26,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2419,7 +2211,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "classes unloaded",
+              "color": "#bf1b00"
+            }
+          ],
           "spaceLength": 10,
           "span": 4,
           "stack": false,
@@ -2453,7 +2250,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2461,7 +2258,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2489,11 +2286,11 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "Count of servlet requests",
-          "fill": 1,
+          "fill": 0,
           "id": 27,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2519,7 +2316,7 @@
               "expr": "httpsessions_max{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{method}} {{uri}} - {{status}}",
+              "legendFormat": "max http session",
               "refId": "A",
               "step": 30
             }
@@ -2533,6 +2330,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2571,7 +2369,7 @@
           "id": 28,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
+            "avg": false,
             "current": true,
             "max": true,
             "min": true,
@@ -2611,6 +2409,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2621,7 +2420,7 @@
           },
           "yaxes": [
             {
-              "format": "lengthm",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2629,7 +2428,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2660,12 +2459,12 @@
           "id": 39,
           "legend": {
             "avg": false,
-            "current": false,
+            "current": true,
             "max": false,
             "min": false,
             "show": true,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": true,
           "linewidth": 1,
@@ -2685,7 +2484,7 @@
               "expr": "counter_status_201_inspections{job=\"Inspection Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "No of inspection created",
+              "legendFormat": "created inspection",
               "refId": "A"
             }
           ],
@@ -2710,7 +2509,7 @@
           "yaxes": [
             {
               "format": "short",
-              "label": null,
+              "label": "No of inspection ",
               "logBase": 1,
               "max": null,
               "min": null,
@@ -2789,7 +2588,7 @@
           "yaxes": [
             {
               "format": "ms",
-              "label": null,
+              "label": "time",
               "logBase": 1,
               "max": null,
               "min": null,
@@ -2887,7 +2686,7 @@
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "#299c46",
+            "#0a437c",
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
@@ -2897,7 +2696,7 @@
             "maxValue": 100,
             "minValue": 0,
             "show": true,
-            "thresholdLabels": false,
+            "thresholdLabels": true,
             "thresholdMarkers": true
           },
           "id": 40,
@@ -2948,6 +2747,7 @@
           "thresholds": "",
           "timeFrom": "3s",
           "title": "Active DB Connection",
+          "transparent": true,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -3001,6 +2801,7 @@
         "allValue": null,
         "current": {
           "isNone": true,
+          "selected": true,
           "text": "None",
           "value": ""
         },
@@ -3024,7 +2825,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -3054,5 +2855,5 @@
   },
   "timezone": "",
   "title": "TOFS Inspection",
-  "version": 29
+  "version": 6
 }

@@ -1,0 +1,34 @@
+global:
+    config_version: 2
+input:
+    type: file
+    path: /Users/himansunayak/TOFS/innovation/inspection-service/logs/log.log
+    readall: true # Read from the beginning of the file? False means we start at the end of the file and read only new lines.
+grok:
+    patterns_dir: ./patterns
+    additional_patterns:
+    - 'TOFS_MESSAGE [a-zA-Z ]*'
+metrics:
+    - type: counter
+      name: tofs_inspection_trace_event
+      help: Total number trace from inspection log.
+      match: '%{GREEDYDATA} %{LOGLEVEL:TRACE} %{GREEDYDATA}'
+    - type: counter
+      name: tofs_inspection_debug_event
+      help: Total number debug from inspection log.
+      match: '%{GREEDYDATA} %{LOGLEVEL:DEBUG} %{GREEDYDATA}'  
+    - type: counter
+      name: tofs_inspection_error_event
+      help: Total number error from inspection log.
+      match: '%{GREEDYDATA} %{LOGLEVEL:ERROR} %{GREEDYDATA}'
+    - type: counter
+      name: tofs_inspection_warning_event
+      help: Total number warning from inspection log.
+      match: '%{GREEDYDATA} %{LOGLEVEL:WARNING} %{GREEDYDATA}' 
+    - type: counter
+      name: tofs_inspection_info_event
+      help: Total number info from inspection log.
+      match: '%{GREEDYDATA} %{LOGLEVEL:INFO} %{GREEDYDATA}' 
+server:
+    host: localhost
+    port: 9144

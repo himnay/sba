@@ -5,8 +5,10 @@ Spring Boot Admin
         4. Spring Cloud        
         5. Eureka          
         6. Prometheus          
-        7. Gafana      
-        8. Tons of plugins :)         
+        7. Gafana  
+        8. grok
+        9. kubernetes    
+        10. Tons of plugins :)         
   
 start prometheus          
     cd prometheus          
