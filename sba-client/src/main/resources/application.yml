@@ -28,25 +28,17 @@ spring:
 #  jolokia:
 #    sensitive: false
 
-#eureka:
-#  instance:
-#    leaseRenewalIntervalInSeconds: 1
-#    leaseExpirationDurationInSeconds: 2
-#    metadataMap:
-#      instanceId: ${spring.application.name}:${spring.application.instance_id}
-#      management:
-#        contextPath: ${server.context-path}
-#    statusPageUrlPath: ${server.context-path}/info
-#    healthCheckUrlPath: ${server.context-path}/health
-#  client:
-#    registerWithEureka: true
-#    fetchRegistry: true
-#    serviceUrl:
-#      defaultZone: http://localhost:8180/eureka/
-#    healthcheck:
-#      enabled: true
-#    lease:
-#      duration: 5
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8182/eureka/
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
 
 
 ---

@@ -11,11 +11,16 @@ server:
   port: 8182
 
 eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
   client:
-    registerWithEureka: false
-    fetchRegistry: false
-  server:
-    enableSelfPreservation: true
+    serviceUrl:
+        defaultZone: http://127.0.0.1:8182/eureka/
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
 
 management:
   security:

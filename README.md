@@ -5,9 +5,9 @@ Spring Boot Admin
         4. Spring Cloud        
         5. Eureka          
         6. Prometheus          
-        7. Gafana  
-        8. grok
-        9. kubernetes    
+        7. Grafana  
+        8. Grok
+        9. Kubernetes    
         10. Tons of plugins :)         
   
 start prometheus          
@@ -21,5 +21,7 @@ start grafana
     http://localhost:3000/login          
     admin/admin  
   
-Grafana metrics query  
-    scrape_duration_seconds
+start grok:
+    ./grok_exporter -config ./config_tofs.yml 
+    
+start all the three project.

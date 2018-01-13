@@ -19,10 +19,10 @@
   "hideControls": false,
   "id": 13,
   "links": [],
-  "refresh": "5s",
+  "refresh": false,
   "rows": [
     {
-      "collapse": false,
+      "collapse": true,
       "height": "250px",
       "panels": [
         {
@@ -173,7 +173,7 @@
             }
           ],
           "thresholds": "",
-          "timeFrom": "5s",
+          "timeFrom": null,
           "timeShift": null,
           "title": "Process Start Time",
           "transparent": true,
@@ -197,7 +197,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": false,
+      "collapse": true,
       "height": 246,
       "panels": [
         {
@@ -210,7 +210,7 @@
             "#d44a3a"
           ],
           "datasource": null,
-          "description": "The number of processors available to the Java virtual machine",
+          "description": "Returns the number of processors available to the Java virtual machine.",
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -283,7 +283,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "decimals": null,
-          "description": "CPU Load",
+          "description": "Returns the system load average for the last minute. The system load average is the sum of the number of runnable entities queued to the getAvailableProcessors available processors and the number of runnable entities running on the available processors averaged over a period of time. The way in which the load average is calculated is operating system specific but is typically a damped time-dependent average",
           "fill": 1,
           "id": 4,
           "legend": {
@@ -318,7 +318,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "gauge_process_cpu_load{job=\"Test Client\"}",
+              "expr": "systemload_average{job=\"Test Client\"}",
               "format": "time_series",
               "instant": false,
               "interval": "",
@@ -533,7 +533,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"warn\"}",
+              "expr": "tofs_inspection_warning_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -610,7 +610,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"debug\"}",
+              "expr": "tofs_inspection_debug_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "",
@@ -688,7 +688,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"error\"}",
+              "expr": "tofs_inspection_error_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -765,7 +765,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"trace\"}",
+              "expr": "tofs_inspection_trace_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -842,7 +842,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "logback_events_total{kubernetes_pod_name=~\"$pod_name\", level=\"info\"}",
+              "expr": "tofs_inspection_info_event{job=\"Grok Log Job\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -871,7 +871,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": false,
+      "collapse": true,
       "height": 250,
       "panels": [
         {
@@ -1195,7 +1195,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": false,
+      "collapse": true,
       "height": 263,
       "panels": [
         {
@@ -1671,7 +1671,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": false,
+      "collapse": true,
       "height": 250,
       "panels": [
         {
@@ -2016,7 +2016,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": false,
+      "collapse": true,
       "height": 234,
       "panels": [
         {
@@ -2275,7 +2275,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": false,
+      "collapse": true,
       "height": 250,
       "panels": [
         {
@@ -2445,7 +2445,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": false,
+      "collapse": true,
       "height": 222,
       "panels": [
         {
@@ -2763,7 +2763,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "TOFS Metrics",
+      "title": "Inspection Metrics",
       "titleSize": "h6"
     }
   ],
@@ -2823,8 +2823,8 @@
     ]
   },
   "time": {
-    "from": "now-15m",
-    "to": "now"
+    "from": "2018-01-13T09:20:28.026Z",
+    "to": "2018-01-13T09:50:28.026Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -2853,5 +2853,5 @@
   },
   "timezone": "",
   "title": "Test Client",
-  "version": 12
+  "version": 16
 }

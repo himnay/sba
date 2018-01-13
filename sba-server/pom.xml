@@ -33,12 +33,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
+        <!-- Eureka Service Registry -->
         <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-            <version>1.4.0.RELEASE</version>
+            <artifactId>spring-cloud-starter-eureka-server</artifactId>
         </dependency>-->
 
+        <!-- SBA Dependencies -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server</artifactId>
