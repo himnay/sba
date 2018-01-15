@@ -28,18 +28,18 @@ spring:
 #  jolokia:
 #    sensitive: false
 
-eureka:
-  instance:
-    leaseRenewalIntervalInSeconds: 1
-    leaseExpirationDurationInSeconds: 2
-  client:
-    serviceUrl:
-      defaultZone: http://127.0.0.1:8182/eureka/
-    healthcheck:
-      enabled: true
-    lease:
-      duration: 5
-
+# eureka setup
+#eureka:
+#  instance:
+#    leaseRenewalIntervalInSeconds: 1
+#    leaseExpirationDurationInSeconds: 2
+#  client:
+#    serviceUrl:
+#      defaultZone: http://127.0.0.1:8182/eureka/
+#    healthcheck:
+#      enabled: true
+#    lease:
+#      duration: 5
 
 ---
 spring:
