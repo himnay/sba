@@ -2,7 +2,7 @@ server:
   port: 8080
 
 logging:
-  file: /Users/himansunayak/TOFS/innovation/springbootadmin/logs/log.log
+  file: /Users/himansunayak/TOFS/innovation/sba/logs/log.log
   level:
     com.jci.tofs.sba: DEBUG
 

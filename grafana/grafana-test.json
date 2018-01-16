@@ -19,7 +19,7 @@
   "hideControls": false,
   "id": 13,
   "links": [],
-  "refresh": false,
+  "refresh": "5s",
   "rows": [
     {
       "collapse": true,
@@ -93,6 +93,7 @@
             }
           ],
           "thresholds": "",
+          "timeFrom": "1s",
           "title": "Process Uptime",
           "transparent": true,
           "type": "singlestat",
@@ -173,7 +174,7 @@
             }
           ],
           "thresholds": "",
-          "timeFrom": null,
+          "timeFrom": "1s",
           "timeShift": null,
           "title": "Process Start Time",
           "transparent": true,
@@ -210,10 +211,10 @@
             "#d44a3a"
           ],
           "datasource": null,
-          "description": "Returns the number of processors available to the Java virtual machine.",
+          "description": "The number of logical threads. e.g. If you have hyper-threading on, this will be double the number of cores.\nsysctl -n machdep.cpu.core_count",
           "format": "none",
           "gauge": {
-            "maxValue": 100,
+            "maxValue": 10,
             "minValue": 0,
             "show": true,
             "thresholdLabels": true,
@@ -257,13 +258,15 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "processors{job=\"Test Client\"}",
+              "expr": "processors{job=\"Test Client\"}/2",
               "format": "time_series",
               "intervalFactor": 2,
+              "legendFormat": "",
               "refId": "A"
             }
           ],
           "thresholds": "",
+          "timeFrom": "1s",
           "title": "Processor Count",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -473,7 +476,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
+      "collapse": false,
       "height": 250,
       "panels": [
         {
@@ -541,6 +544,7 @@
             }
           ],
           "thresholds": "",
+          "timeFrom": null,
           "title": "Warn Events",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -850,6 +854,7 @@
             }
           ],
           "thresholds": "",
+          "timeFrom": "1s",
           "title": "Info Events",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1195,7 +1200,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
+      "collapse": false,
       "height": 263,
       "panels": [
         {
@@ -1681,7 +1686,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Time",
-          "fill": 0,
+          "fill": 3,
           "id": 21,
           "legend": {
             "alignAsTable": true,
@@ -1694,7 +1699,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -1730,7 +1735,7 @@
             "sort": 0,
             "value_type": "individual"
           },
-          "transparent": false,
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1765,7 +1770,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Time",
-          "fill": 0,
+          "fill": 3,
           "id": 22,
           "legend": {
             "alignAsTable": true,
@@ -1778,7 +1783,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -1814,6 +1819,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1848,7 +1854,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Count",
-          "fill": 0,
+          "fill": 3,
           "id": 23,
           "legend": {
             "alignAsTable": true,
@@ -1861,7 +1867,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -1897,6 +1903,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1907,11 +1914,12 @@
           },
           "yaxes": [
             {
+              "decimals": null,
               "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": "0",
               "show": true
             },
             {
@@ -1931,7 +1939,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "GC Count",
-          "fill": 0,
+          "fill": 3,
           "id": 24,
           "legend": {
             "alignAsTable": true,
@@ -1944,13 +1952,15 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
+          "minSpan": null,
           "nullPointMode": "null",
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
+          "repeat": null,
           "seriesOverrides": [
             {
               "alias": "cause (action)",
@@ -1980,6 +1990,7 @@
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -2016,7 +2027,7 @@
       "titleSize": "h6"
     },
     {
-      "collapse": true,
+      "collapse": false,
       "height": 234,
       "panels": [
         {
@@ -2025,8 +2036,9 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "prometheus_ds",
-          "fill": 1,
-          "id": 29,
+          "description": "The number of classes that are currently loaded in the Java virtual machine",
+          "fill": 3,
+          "id": 44,
           "legend": {
             "alignAsTable": true,
             "avg": false,
@@ -2038,17 +2050,17 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
-          "percentage": false,
+          "percentage": true,
           "pointradius": 5,
-          "points": false,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "available classes",
-              "color": "#890f02"
+              "alias": "classes loaded",
+              "color": "#bf1b00"
             }
           ],
           "spaceLength": 10,
@@ -2060,8 +2072,9 @@
               "expr": "classes{job=\"Test Client\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "available classes",
-              "refId": "A"
+              "legendFormat": "classes loaded",
+              "refId": "A",
+              "step": 30
             }
           ],
           "thresholds": [],
@@ -2107,7 +2120,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "The number of classes that are currently loaded in the Java virtual machine",
-          "fill": 1,
+          "fill": 3,
           "id": 25,
           "legend": {
             "alignAsTable": true,
@@ -2120,7 +2133,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -2190,7 +2203,7 @@
           "dashes": false,
           "datasource": "prometheus_ds",
           "description": "The total number of classes unloaded since the Java virtual machine has started execution",
-          "fill": 1,
+          "fill": 3,
           "id": 26,
           "legend": {
             "alignAsTable": true,
@@ -2203,7 +2216,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -2253,7 +2266,7 @@
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": "0",
               "show": true
             },
             {
@@ -2340,7 +2353,8 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "decimals": null,
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2348,7 +2362,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "none",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -2823,8 +2837,8 @@
     ]
   },
   "time": {
-    "from": "2018-01-13T09:20:28.026Z",
-    "to": "2018-01-13T09:50:28.026Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -2853,5 +2867,5 @@
   },
   "timezone": "",
   "title": "Test Client",
-  "version": 16
+  "version": 28
 }
